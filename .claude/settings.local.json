@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /etc/nixos/)",
+      "Read(//etc/nixos/**)",
+      "WebFetch(domain:codeberg.org)"
+    ]
+  }
+}
