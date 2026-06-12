@@ -7,7 +7,7 @@
     hotkeys.commands."quick-access-terminal" = {
       name = "Quick Access Terminal";
       key = "F7";
-      command = "kitty kitten quick_access_terminal";
+      command = "kitten quick_access_terminal";
     };
 
     panels = [
