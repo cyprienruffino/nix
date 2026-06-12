@@ -14,6 +14,7 @@
     ./kitty
     ./tmux
     ./packages
+    ./python
     ./scripts
     ./vscode
   ];

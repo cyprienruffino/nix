@@ -61,6 +61,9 @@
         fi
       }
 
+      # Activate the persistent user Python venv
+      [[ -f "$HOME/.venv/bin/activate" ]] && source "$HOME/.venv/bin/activate"
+
       # Auto-launch tmux if not already inside a session
       [[ -z "$TMUX" ]] && tmux
     '';
