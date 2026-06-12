@@ -4,6 +4,12 @@
   programs.plasma = {
     enable = true;
 
+    hotkeys.commands."quick-access-terminal" = {
+      name = "Quick Access Terminal";
+      key = "F7";
+      command = "kitty kitten quick_access_terminal";
+    };
+
     panels = [
       {
         location = "top";
