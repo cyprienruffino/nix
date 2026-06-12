@@ -28,7 +28,7 @@
         inherit pkgs;
         modules = [
           ./home-manager/home.nix
-          plasma-manager.homeManagerModules.plasma-manager
+          plasma-manager.homeModules.plasma-manager
         ];
       };
     };

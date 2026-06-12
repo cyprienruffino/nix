@@ -10,7 +10,7 @@
     };
 
     shellAliases = {
-      hms  = "home-manager switch --flake /home/cyprien/nix";
+      hms  = "home-manager switch --flake /home/cyprien/nix -b backup";
       hmn  = "home-manager news --flake /home/cyprien/nix";
       ls   = "ls --color=auto";
       grep = "grep --color=auto";

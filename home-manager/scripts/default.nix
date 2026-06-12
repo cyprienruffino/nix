@@ -46,13 +46,13 @@
 
     # Note: tpad uses xinput (X11). May not work under Wayland.
     (pkgs.writeShellScriptBin "tpad" ''
-      INPUTID=$(${pkgs.xorg.xinput}/bin/xinput list | grep ouchpad | sed -E 's/(.*)id=(.*)/\2/' | sed -E 's/(.*)\[(.*)/\1/')
+      INPUTID=$(${pkgs.xinput}/bin/xinput list | grep ouchpad | sed -E 's/(.*)id=(.*)/\2/' | sed -E 's/(.*)\[(.*)/\1/')
       if [ -f ".tpadlock" ]; then
         rm .tpadlock
-        ${pkgs.xorg.xinput}/bin/xinput enable $INPUTID
+        ${pkgs.xinput}/bin/xinput enable $INPUTID
       else
         touch .tpadlock
-        ${pkgs.xorg.xinput}/bin/xinput disable $INPUTID
+        ${pkgs.xinput}/bin/xinput disable $INPUTID
       fi
     '')
   ];
