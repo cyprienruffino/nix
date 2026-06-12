@@ -3,7 +3,9 @@
     "allow": [
       "Bash(ls -la /etc/nixos/)",
       "Read(//etc/nixos/**)",
-      "WebFetch(domain:codeberg.org)"
+      "WebFetch(domain:codeberg.org)",
+      "Bash(find /home/cyprien/dotfiles -type f -o -type d | head -100)",
+      "Read(//home/cyprien/**)"
     ]
   }
 }

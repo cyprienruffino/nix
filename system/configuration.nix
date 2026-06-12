@@ -90,7 +90,6 @@
     description = "Cyprien Ruffino";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      kdePackages.kate
     #  thunderbird
     ];
   };
@@ -109,13 +108,6 @@
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-    git
-  (vscode-with-extensions.override {
-    vscodeExtensions = with vscode-extensions; [
-      anthropic.claude-code
-      # add other extensions here
-    ];
-  })
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
