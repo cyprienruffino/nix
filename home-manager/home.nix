@@ -21,6 +21,7 @@
   ];
 
   home.packages = with pkgs; [
+    pkgs.claude-code
   ];
 
   programs.home-manager.enable = true;

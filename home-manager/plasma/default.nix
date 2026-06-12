@@ -14,7 +14,6 @@
       {
         location = "top";
         floating = false;
-        hiding = "autohide";
         widgets = [
           "org.kde.plasma.kickoff"
           "org.kde.plasma.pager"
