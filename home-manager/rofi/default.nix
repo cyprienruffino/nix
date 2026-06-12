@@ -3,7 +3,7 @@
 {
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     terminal = "${pkgs.kitty}/bin/kitty";
     extraConfig = {
       modi = "drun,run,window";
