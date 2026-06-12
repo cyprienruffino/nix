@@ -15,7 +15,7 @@
     ./tmux
     ./packages
     ./plasma
-    ./ulauncher
+    ./rofi
     ./python
     ./scripts
     ./vscode

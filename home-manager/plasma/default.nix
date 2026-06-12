@@ -4,6 +4,12 @@
   programs.plasma = {
     enable = true;
 
+    hotkeys.commands."rofi" = {
+      name = "Launch Rofi";
+      key = "ctrl+space";
+      command = "rofi -show drun";
+    };
+
     hotkeys.commands."quick-access-terminal" = {
       name = "Quick Access Terminal";
       key = "F7";
