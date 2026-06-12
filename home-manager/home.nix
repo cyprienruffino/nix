@@ -11,6 +11,10 @@
     ./shell
     ./git
     ./kate
+    ./kitty
+    ./tmux
+    ./packages
+    ./scripts
     ./vscode
   ];
 

@@ -5,7 +5,9 @@
       "Read(//etc/nixos/**)",
       "WebFetch(domain:codeberg.org)",
       "Bash(find /home/cyprien/dotfiles -type f -o -type d | head -100)",
-      "Read(//home/cyprien/**)"
+      "Read(//home/cyprien/**)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

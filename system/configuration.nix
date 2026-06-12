@@ -88,6 +88,7 @@
   users.users."cyprien" = {
     isNormalUser = true;
     description = "Cyprien Ruffino";
+    shell = pkgs.zsh;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
     #  thunderbird
@@ -96,6 +97,9 @@
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  # Enable zsh system-wide (required to set it as default shell)
+  programs.zsh.enable = true;
 
   # Enable flakes and new nix CLI
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
