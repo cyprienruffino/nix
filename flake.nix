@@ -7,9 +7,14 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, plasma-manager, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -21,7 +26,10 @@
 
       homeConfigurations."cyprien@nixos" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home-manager/home.nix ];
+        modules = [
+          ./home-manager/home.nix
+          plasma-manager.homeManagerModules.plasma-manager
+        ];
       };
     };
 }
