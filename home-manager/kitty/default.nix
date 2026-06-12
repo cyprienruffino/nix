@@ -8,4 +8,8 @@
       paste_actions = "quote-urls-at-prompt";
     };
   };
+
+  xdg.configFile."kitty/quick-access-terminal.conf".text = ''
+    edge center
+  '';
 }

@@ -17,7 +17,7 @@
       egrep = "egrep --color=auto";
       fgrep = "fgrep --color=auto";
       ssh  = "TERM=xterm-256color ssh";
-      llm  = "llm -m claude-sonnet-4-6 -s 'You are currently run in a zsh terminal with a very small text display. Do not exceed 500 characters. If I ask you to give me a command, you HAVE to cut out unnecessary text, summaries, comments. Go straight to the point, do not give additional information, cut the fluff.'";
+      llm  = "llm -m claude-4-sonnet -s 'You are currently run in a zsh terminal with a very small text display. Do not exceed 500 characters. If I ask you to give me a command, you HAVE to cut out unnecessary text, summaries, comments. Go straight to the point, do not give additional information, cut the fluff.'";
     };
 
     initContent = ''
@@ -63,9 +63,6 @@
 
       # Activate the persistent user Python venv
       [[ -f "$HOME/.venv/bin/activate" ]] && source "$HOME/.venv/bin/activate"
-
-      # Auto-launch tmux if not already inside a session
-      [[ -z "$TMUX" ]] && tmux
     '';
   };
 

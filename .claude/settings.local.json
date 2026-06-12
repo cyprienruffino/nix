@@ -12,7 +12,8 @@
       "Bash(ls /nix/store/1lxkymfm2im5n4glg4v9iy75b8mwii10-home-manager-generation/home-files/.config/ | grep -i plasma)",
       "Read(//nix/store/v67sdqyjwgq9xvbpgcy71859z16qwwgz-home-manager-files/.config/**)",
       "Bash(find /nix/store -path \"*/plasma-manager/modules/panels.nix\" 2>/dev/null | head -3)",
-      "Read(//nix/store/**)"
+      "Read(//nix/store/**)",
+      "Bash(kitty kitten *)"
     ]
   }
 }
