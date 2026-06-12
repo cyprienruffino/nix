@@ -5,14 +5,12 @@
   home.homeDirectory = "/home/cyprien";
   home.stateVersion = "26.05";
 
-  home.packages = with pkgs; [
-    # Add user packages here
+  imports = [
+    ./shell
   ];
 
-  home.shellAliases = {
-    hms = "home-manager switch --flake /home/cyprien/nix";
-    hmn = "home-manager news --flake /home/cyprien/nix";
-  };
+  home.packages = with pkgs; [
+  ];
 
   programs.home-manager.enable = true;
 }
