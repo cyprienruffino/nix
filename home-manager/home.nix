@@ -15,6 +15,7 @@
     ./tmux
     ./packages
     ./plasma
+    ./ulauncher
     ./python
     ./scripts
     ./vscode

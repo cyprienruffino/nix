@@ -18,6 +18,5 @@
     obsidian
     freetube
     ferdium
-    ulauncher
   ];
 }
