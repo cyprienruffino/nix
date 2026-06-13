@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   nixpkgs.config.allowUnfree = true;
@@ -7,20 +7,10 @@
   home.homeDirectory = "/home/cyprien";
   home.stateVersion = "26.05";
 
-  imports = [
-    ./shell
-    ./git
-    ./kate
-    ./kitty
-    ./tmux
-    ./packages
-    ./plasma
-    ./rofi
-    ./python
-    ./scripts
-    ./vscode
-    ./portals
-  ];
+  imports =
+    let dirs = builtins.readDir ./.;
+    in map (name: ./. + "/${name}")
+       (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
 
   home.packages = with pkgs; [
     pkgs.claude-code
