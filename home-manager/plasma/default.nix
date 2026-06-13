@@ -6,6 +6,8 @@
 
     workspace.wallpaper = ../../res/wallpaper.jpg;
 
+    configFile."kwinrc"."ModifierOnlyShortcuts"."Meta" = "org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview";
+
     hotkeys.commands."rofi" = {
       name = "Launch Rofi";
       key = "ctrl+space";
