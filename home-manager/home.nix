@@ -16,7 +16,9 @@
     pkgs.claude-code
   ];
 
-  home.file.".local/res/alarm.mp4".source = ../res/alarm.mp4;
+  home.file = lib.mapAttrs'
+    (name: _: lib.nameValuePair ".local/res/${name}" { source = ../res + "/${name}"; })
+    (lib.filterAttrs (_: t: t == "regular") (builtins.readDir ../res));
 
   programs.home-manager.enable = true;
 }
