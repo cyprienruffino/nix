@@ -23,7 +23,6 @@
     obsidian
     freetube
     ferdium
-    steam
     kdePackages.kate
   ];
 }
