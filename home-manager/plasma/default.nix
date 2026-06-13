@@ -6,10 +6,10 @@
 
     workspace.wallpaper = ../../res/wallpaper.jpg;
 
-    configFile."kwinrc"."ModifierOnlyShortcuts"."Meta" = "org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview";
-
-    # Remove Meta from the app launcher shortcut so kwin's ModifierOnlyShortcuts wins.
-    configFile."kglobalshortcutsrc"."plasmashell"."activate application launcher" = "Alt+F1,Meta\\tAlt+F1,Activer le lanceur d'applications";
+    # Bind Meta alone to Overview; keep Meta+W as well.
+    # Remove Meta from the app launcher so it doesn't conflict.
+    shortcuts."kwin"."Overview" = [ "Meta" "Meta+W" ];
+    shortcuts."plasmashell"."activate application launcher" = "Alt+F1";
 
     hotkeys.commands."rofi" = {
       name = "Launch Rofi";
