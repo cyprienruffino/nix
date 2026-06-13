@@ -13,6 +13,7 @@
     micro
     yazi
     k9s
+    screenfetch
     stu
 
     # Cloud CLIs
