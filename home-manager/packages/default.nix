@@ -15,6 +15,11 @@
     k9s
     stu
 
+    # Cloud CLIs
+    awscli2
+    azure-cli
+    google-cloud-sdk
+
     # Media
     vlc
     mpv
