@@ -34,6 +34,7 @@
     mpv
 
     # Apps
+    claude-code
     discord
     obsidian
     freetube
