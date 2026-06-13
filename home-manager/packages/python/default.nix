@@ -3,6 +3,12 @@
 let
   pipPackages = [
     "llm"
+    "pillow"
+    "opencv-python"
+    "python-ffmpeg"
+    "scipy"
+    "scikit-image"
+    "tqdm"
   ];
 in
 {

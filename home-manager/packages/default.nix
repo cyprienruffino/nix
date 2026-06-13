@@ -13,6 +13,7 @@
     micro
     yazi
     k9s
+    stu
 
     # Media
     vlc
