@@ -30,6 +30,7 @@
           "org.kde.plasma.systemtray"
           "org.kde.plasma.digitalclock"
           "org.kde.plasma.showdesktop"
+          "org.kde.plasma.lock_logout"
         ];
       }
     ];
