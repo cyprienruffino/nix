@@ -20,6 +20,12 @@
     azure-cli
     google-cloud-sdk
 
+    # Dev
+    terraform
+    docker
+    nodejs
+
+
     # Media
     vlc
     mpv
