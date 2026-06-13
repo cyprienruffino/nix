@@ -8,6 +8,9 @@
 
     configFile."kwinrc"."ModifierOnlyShortcuts"."Meta" = "org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview";
 
+    # Remove Meta from the app launcher shortcut so kwin's ModifierOnlyShortcuts wins.
+    configFile."kglobalshortcutsrc"."plasmashell"."activate application launcher" = "Alt+F1,Meta\\tAlt+F1,Activer le lanceur d'applications";
+
     hotkeys.commands."rofi" = {
       name = "Launch Rofi";
       key = "ctrl+space";

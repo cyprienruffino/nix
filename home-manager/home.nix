@@ -19,6 +19,7 @@
     ./python
     ./scripts
     ./vscode
+    ./portals
   ];
 
   home.packages = with pkgs; [
