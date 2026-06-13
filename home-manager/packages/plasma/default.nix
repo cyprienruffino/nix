@@ -4,7 +4,7 @@
   programs.plasma = {
     enable = true;
 
-    workspace.wallpaper = ../../res/wallpaper.jpg;
+    workspace.wallpaper = ../../../res/wallpaper.jpg;
 
     # Bind Meta alone to Overview; keep Meta+W as well.
     # Remove Meta from the app launcher so it doesn't conflict.
