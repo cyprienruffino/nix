@@ -24,6 +24,8 @@
     terraform
     docker
     nodejs
+    packer
+    gh
 
 
     # Media
