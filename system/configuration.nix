@@ -98,6 +98,10 @@
   # Install firefox.
   programs.firefox.enable = true;
 
+  # Steam needs system-level setup for OpenGL/Vulkan drivers and FHS environment.
+  programs.steam.enable = true;
+  hardware.graphics.enable32Bit = true;
+
   # Enable zsh system-wide (required to set it as default shell)
   programs.zsh.enable = true;
 
