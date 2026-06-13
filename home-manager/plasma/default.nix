@@ -4,7 +4,7 @@
   programs.plasma = {
     enable = true;
 
-    workspace.wallpaper = ../res/wallpaper.jpg;
+    workspace.wallpaper = ../../res/wallpaper.jpg;
 
     hotkeys.commands."rofi" = {
       name = "Launch Rofi";
