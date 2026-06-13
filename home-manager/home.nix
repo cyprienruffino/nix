@@ -25,5 +25,7 @@
     pkgs.claude-code
   ];
 
+  home.file.".local/res/alarm.mp4".source = ../res/alarm.mp4;
+
   programs.home-manager.enable = true;
 }
