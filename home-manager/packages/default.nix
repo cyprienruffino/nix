@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 {
-  imports =
+  imports =  # Import everything ffrom every subdirectories
     let dirs = builtins.readDir ./.;
     in map (name: ./. + "/${name}")
        (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
@@ -15,6 +15,7 @@
     k9s
     screenfetch
     stu
+    killall
 
     # Cloud CLIs
     awscli2
