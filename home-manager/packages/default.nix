@@ -37,6 +37,7 @@
     # Apps
     claude-code
     discord
+    gimp
     obsidian
     freetube
     ferdium
