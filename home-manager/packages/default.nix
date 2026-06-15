@@ -34,6 +34,10 @@
     vlc
     mpv
 
+    # Audio / Music
+    guitarix
+    ardour
+
     # Apps
     claude-code
     discord
