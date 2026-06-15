@@ -14,6 +14,7 @@
       hmn  = "home-manager news --flake /home/cyprien/nix";
       nrs = "sudo nixos-rebuild switch --flake /home/cyprien/nix";
       nfu = "nix flake update  --flake /home/cyprien/nix";
+      nu = "nfu && nrs && hms && hmn";
       ls   = "ls --color=auto";
       grep = "grep --color=auto";
       ssh        = "TERM=xterm-256color ssh";
