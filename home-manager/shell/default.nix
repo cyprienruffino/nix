@@ -10,8 +10,10 @@
     };
 
     shellAliases = {
-      hms  = "home-manager switch --flake /home/cyprien/nix -b backup";
+      hms  = "git -C /home/cyprien/nix add -A && home-manager switch --flake /home/cyprien/nix -b backup";
       hmn  = "home-manager news --flake /home/cyprien/nix";
+      nrs = "sudo nixos-rebuild switch --flake /home/cyprien/nix";
+      nfu = "nix flake update  --flake /home/cyprien/nix";
       ls   = "ls --color=auto";
       grep = "grep --color=auto";
       ssh        = "TERM=xterm-256color ssh";

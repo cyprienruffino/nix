@@ -36,6 +36,7 @@
 
     # Audio / Music
     guitarix
+    qpwgraph
     ardour
 
     # Apps
