@@ -10,7 +10,6 @@
     # CLI tools
     btop
     htop
-    micro
     yazi
     k9s
     screenfetch
@@ -30,13 +29,11 @@
     gh
 
 
-    # Media
+    # Media / Audio / Music
     vlc
-    mpv
-
-    # Audio / Music
     guitarix
     qpwgraph
+    ffmpeg
     ardour
 
     # Apps
@@ -46,6 +43,7 @@
     obsidian
     freetube
     ferdium
+    protonvpn-gui
     kdePackages.kate
   ];
 }
