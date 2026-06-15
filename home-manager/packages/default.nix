@@ -11,6 +11,7 @@
     btop
     htop
     yazi
+    wget
     k9s
     screenfetch
     stu
