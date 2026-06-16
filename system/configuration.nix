@@ -109,6 +109,15 @@
   # Enable zsh system-wide (required to set it as default shell)
   programs.zsh.enable = true;
 
+  # Compatibility layer for pip-installed native binaries (no /lib on NixOS)
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc  # libstdc++.so.6
+    zlib          # libz.so.1
+    glib          # libglib-2.0.so.0
+    libGL         # libGL.so.1  (opencv)
+  ];
+
   # Enable flakes and new nix CLI
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
