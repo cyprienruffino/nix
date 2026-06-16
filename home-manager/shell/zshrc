@@ -37,6 +37,3 @@ ex() {
     echo "'$1' is not a valid file"
   fi
 }
-
-# Activate the persistent user Python venv
-[[ -f "$HOME/.venv/bin/activate" ]] && source "$HOME/.venv/bin/activate"
