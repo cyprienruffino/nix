@@ -93,7 +93,7 @@
     isNormalUser = true;
     description = "Cyprien Ruffino";
     shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbusers" ];
     packages = with pkgs; [
     #  thunderbird
     ];

@@ -28,6 +28,7 @@
     nodejs
     packer
     gh
+    android-tools
 
 
     # Media / Audio / Music
