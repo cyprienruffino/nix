@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
   inject = file: subs:
@@ -27,4 +27,9 @@ in
       exec /home/cyprien/.local/share/pipx/venvs/cocoindex-code/bin/ccc "$@"
     '')
   ];
+
+  # Prevent pipx shims from shadowing our Nix wrappers in ~/.local/bin
+  home.activation.removePipxShims = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    rm -f "$HOME/.local/bin/ccc"
+  '';
 }
