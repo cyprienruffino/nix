@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   inject = file: subs:
@@ -22,14 +22,5 @@ in
       { placeholder = "@xinput@"; value = "${pkgs.xinput}"; }
     ]))
 
-    (pkgs.writeShellScriptBin "ccc" ''
-      export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
-      exec /home/cyprien/.local/share/pipx/venvs/cocoindex-code/bin/ccc "$@"
-    '')
   ];
-
-  # Prevent pipx shims from shadowing our Nix wrappers in ~/.local/bin
-  home.activation.removePipxShims = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    rm -f "$HOME/.local/bin/ccc"
-  '';
 }
