@@ -21,5 +21,10 @@ in
     (pkgs.writeShellScriptBin "tpad" (inject ./tpad.sh [
       { placeholder = "@xinput@"; value = "${pkgs.xinput}"; }
     ]))
+
+    (pkgs.writeShellScriptBin "ccc" ''
+      export LD_LIBRARY_PATH="${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.zlib}/lib:$LD_LIBRARY_PATH"
+      exec /home/cyprien/.local/share/pipx/venvs/cocoindex-code/bin/ccc "$@"
+    '')
   ];
 }
