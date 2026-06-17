@@ -18,6 +18,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.nameservers = [ "9.9.9.9" "149.112.112.112" ]; # Quad9
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -132,8 +133,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    dnsutils    # dig, nslookup, host
+    nettools    # netstat, ifconfig, route, arp
+    nmap        # port scanning
+    traceroute
+    whois
+    mtr         # combined traceroute + ping
+    tcpdump     # packet capture
+    iperf3      # bandwidth testing
+    lsof        # list open files/sockets
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
