@@ -45,7 +45,7 @@
     obsidian
     freetube
     ferdium
-    protonvpn-gui
+    proton-vpn
     kdePackages.kate
   ];
 }
