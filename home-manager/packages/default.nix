@@ -37,6 +37,8 @@
     qpwgraph
     ffmpeg
     ardour
+    audacity
+    musescore
 
     # Apps
     claude-code
