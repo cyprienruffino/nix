@@ -1,19 +1,11 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      musescore = prev.musescore.overrideAttrs (old: rec {
-        version = "4.4.4";
-        src = prev.fetchFromGitHub {
-          owner = "musescore";
-          repo = "MuseScore";
-          rev = "v${version}";
-          hash = "sha256-/1kAgzmSbnuCqd6YxbaYW2+gE0Gvy373y5VfUK4OVzI=";
-        };
-      });
-    })
-  ];
-
-  home.packages = [ pkgs.musescore ];
+  # MuseScore is installed via Flatpak to avoid a Qt 6.9 crash in the
+  # "New Score" QML dialog (QQmlConnections::connectSignalsToMethods SIGSEGV).
+  # The Flatpak bundles its own Qt, bypassing the incompatibility.
+  #
+  # After `nrs`, run once:
+  #   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+  #   flatpak install flathub org.musescore.MuseScore
 }
