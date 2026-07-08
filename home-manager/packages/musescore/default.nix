@@ -9,7 +9,7 @@
           owner = "musescore";
           repo = "MuseScore";
           rev = "v${version}";
-          hash = "sha256-0cjp1sp50pwmrgvpxjxg849s0vsvk2vcb66ym617nvlj761h0ngz";
+          hash = "sha256-/1kAgzmSbnuCqd6YxbaYW2+gE0Gvy373y5VfUK4OVzI=";
         };
       });
     })
