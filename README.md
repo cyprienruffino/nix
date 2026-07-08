@@ -13,10 +13,10 @@ Personal NixOS setup managed with flakes and Home Manager.
 |---|---|
 | `hms` | Apply home-manager changes (alias) |
 | `hmn` | Show home-manager changelog |
-| `sudo nixos-rebuild switch --flake /home/cyprien/nix#nixos` | Apply system changes |
+| `nrs` or `sudo nixos-rebuild switch --flake /home/cyprien/nix#nixos` | Apply system changes |
 | `sudo nixos-rebuild test --flake ...` | Apply without making it the boot default |
 | `sudo nixos-rebuild boot --flake ...` | Stage for next boot only |
-| `nix flake update` | Update all inputs to latest (nixpkgs, home-manager…) |
+| `nfu` or `nix flake update` | Update all inputs to latest (nixpkgs, home-manager…) |
 | `nix flake update nixpkgs` | Update a single input |
 
 ### Packages
