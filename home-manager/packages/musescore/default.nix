@@ -1,11 +1,8 @@
-{ ... }:
+{ pkgs2411, ... }:
 
 {
-  # MuseScore is installed via Flatpak to avoid a Qt 6.9 crash in the
-  # "New Score" QML dialog (QQmlConnections::connectSignalsToMethods SIGSEGV).
-  # The Flatpak bundles its own Qt, bypassing the incompatibility.
-  #
-  # After `nrs`, run once:
-  #   flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-  #   flatpak install flathub org.musescore.MuseScore
+  # musescore 4.7.0 (nixos-26.05) crashes at QQmlConnections::connectSignalsToMethods
+  # on Qt 6.9 when opening the New Score dialog. Pulling 4.4.3 from nixos-24.11
+  # which was built against Qt 6.7 and doesn't have this regression.
+  home.packages = [ pkgs2411.musescore ];
 }

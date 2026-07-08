@@ -66,8 +66,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  services.flatpak.enable = true;
-
   # Enable bluetooth.
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
