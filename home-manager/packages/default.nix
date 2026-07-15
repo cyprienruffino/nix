@@ -12,6 +12,8 @@
     gzip
     unrar
     unzip
+    zip
+    xz
     ncompress
     p7zip
     binutils
