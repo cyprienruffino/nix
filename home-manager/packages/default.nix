@@ -38,6 +38,7 @@
     ffmpeg
     ardour
     audacity
+    tuxguitar
 
     # Apps
     claude-code
