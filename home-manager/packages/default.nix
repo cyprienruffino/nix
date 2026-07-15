@@ -7,6 +7,16 @@
        (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
 
   home.packages = with pkgs; [
+    # Archives
+    bzip2
+    gzip
+    unrar
+    unzip
+    ncompress
+    p7zip
+    binutils
+    zstd
+
     # CLI tools
     btop
     htop
