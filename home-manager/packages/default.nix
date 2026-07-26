@@ -65,6 +65,8 @@
     freetube
     ferdium
     chromium
+    wine
+    winetricks
     heroic
     proton-vpn
     kdePackages.kate
