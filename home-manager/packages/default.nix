@@ -64,6 +64,8 @@
     obsidian
     freetube
     ferdium
+    chromium
+    heroic
     proton-vpn
     kdePackages.kate
   ];
