@@ -60,6 +60,7 @@
     # Apps
     claude-code
     discord
+    slack
     gimp
     obsidian
     freetube
@@ -67,6 +68,7 @@
     chromium
     wine
     winetricks
+    dosbox
     heroic
     proton-vpn
     kdePackages.kate
