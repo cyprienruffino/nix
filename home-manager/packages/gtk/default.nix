@@ -1,8 +1,6 @@
 { pkgs, ... }:
 
 {
-  home.file.".gtkrc-2.0".force = true;
-
   gtk = {
     enable = true;
     theme = {
