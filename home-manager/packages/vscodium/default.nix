@@ -12,6 +12,7 @@
         "zsh" = { path = "/home/cyprien/.nix-profile/bin/zsh"; };
       };
       "claudeCode.cliPath" = "/home/cyprien/.nix-profile/bin/claude";
+      "claudeCode.allowDangerouslySkipPermissions" = true;
     };
   };
 
