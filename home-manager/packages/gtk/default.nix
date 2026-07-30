@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 
 {
+  home.file."${config.home.homeDirectory}/.gtkrc-2.0".force = lib.mkForce true;
+
   gtk = {
     enable = true;
     theme = {

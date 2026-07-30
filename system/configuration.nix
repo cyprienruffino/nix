@@ -55,6 +55,13 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
+  # Give Qt a platform plugin session-wide. Without this, kde-open (the
+  # xdg-open backend on Plasma) aborts on startup, which breaks handling of
+  # URL schemes like slack:// — e.g. Slack's "sign in via browser" redirect.
+  environment.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland;xcb";
+  };
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
