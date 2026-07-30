@@ -37,6 +37,26 @@
         "type": "github"
       }
     },
+    "jumpcloud-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785434630,
+        "narHash": "sha256-CFcYU9akSFc3f7wHVQtcYZ0CfSnyZRE+GBVWyAGZXcA=",
+        "owner": "cyprienruffino",
+        "repo": "jumpcloud-nix",
+        "rev": "74ffbf48b051e6ca4ce10a0188dbabb44322d7fc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cyprienruffino",
+        "repo": "jumpcloud-nix",
+        "type": "github"
+      }
+    },
     "kolide-launcher": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -117,6 +137,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "jumpcloud-nix": "jumpcloud-nix",
         "kolide-launcher": "kolide-launcher",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",

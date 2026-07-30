@@ -18,9 +18,14 @@
       url = "github:kolide/nix-agent/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # JumpCloud agent — not in nixpkgs; packaged in a sibling repo.
+    jumpcloud-nix = {
+      url = "github:cyprienruffino/jumpcloud-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -33,6 +38,7 @@
         modules = [
           ./system/configuration.nix
           kolide-launcher.nixosModules.kolide-launcher
+          jumpcloud-nix.nixosModules.default
         ] ++ extraModules;
       };
 

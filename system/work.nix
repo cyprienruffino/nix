@@ -1,4 +1,4 @@
-# Work-mandated agents. Both need a one-time manual enrollment step,
+# Work-mandated agents. Each needs a one-time manual enrollment step,
 # documented under "Work agents" in the README.
 #
 # This is opt-in: nothing here is active unless `custom.work.enable = true`,
@@ -7,7 +7,7 @@
 
 {
   options.custom.work.enable =
-    lib.mkEnableOption "work-mandated device agents (Kolide, Twingate)";
+    lib.mkEnableOption "work-mandated device agents (Kolide, Twingate, JumpCloud)";
 
   config = lib.mkIf config.custom.work.enable {
     # Kolide device-compliance agent (from the kolide-launcher flake input).
@@ -19,5 +19,10 @@
     # Twingate client daemon + the `twingate` CLI.
     # Enrollment is stored in /etc/twingate, written by `sudo twingate setup`.
     services.twingate.enable = true;
+
+    # JumpCloud agent (from the jumpcloud-nix flake input — not in nixpkgs).
+    # Enrolls for inventory and device trust, NOT user-login/PAM management.
+    # The connect key lives in /etc/jumpcloud/connect-key, created out of band.
+    services.jumpcloud-agent.enable = true;
   };
 }

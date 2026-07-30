@@ -89,8 +89,8 @@ Home Manager now manages itself — no need to repeat this step.
 
 ## Work agents
 
-Kolide and Twingate are enabled declaratively in [`system/work.nix`](system/work.nix), but
-both keep their credentials outside the repo — the nix store is world-readable and
+Kolide, Twingate and JumpCloud are enabled declaratively in [`system/work.nix`](system/work.nix),
+but all keep their credentials outside the repo — the nix store is world-readable and
 this repo is in git, so secrets must not be declared in nix. Each needs one manual
 step per machine.
 
@@ -116,6 +116,27 @@ nix shell nixpkgs#dpkg --command dpkg-deb -x kolide-launcher.deb ./kolide && cat
 Check enrollment with `systemctl status kolide-launcher` and
 `journalctl -u kolide-launcher -f`. State lives in `/var/kolide-k2/`.
 
+### JumpCloud
+
+The agent is not in nixpkgs; it comes from the `jumpcloud-nix` flake input
+([cyprienruffino/jumpcloud-nix](https://github.com/cyprienruffino/jumpcloud-nix)) — see
+there for how it works and its scope (enrollment/inventory only, no managed-user login).
+Get the connect key from the admin console under
+[Security → Device Enrollment](https://console.jumpcloud.com/userconsole#/security?tab=deviceEnrollment)
+(click **Generate Command** and copy the `x-connect-key` value), then drop it in and rebuild:
+
+```bash
+sudo mkdir -p /etc/jumpcloud
+printf %s '<connect-key>' | sudo tee /etc/jumpcloud/connect-key
+sudo chmod 600 /etc/jumpcloud/connect-key
+sudo nixos-rebuild switch --flake .#nixos-work
+```
+
+The key rotates, so grab a fresh one; until the device is enrolled the service re-reads it
+on every start, so rotating is just update-the-file + `sudo systemctl restart jcagent`.
+Check enrollment with `systemctl status jcagent` and `journalctl -u jcagent -f`; state
+lives in `/opt/jc/`. The device appears in the console as **Ubuntu 22.04**.
+
 ### Twingate
 
 `services.twingate.enable` gives you the daemon plus the `twingate` CLI. Enroll against
@@ -135,7 +156,6 @@ desktop notification and have to fall back to `twingate-notifier console`.
 | `twingate start` / `twingate stop` | Connect / disconnect |
 | `twingate status` | Connection state |
 | `twingate resources` | List resources you can reach |
-| `sudo journalctl -u twingate -f` | Daemon logs |
 
 > If internal hostnames fail to resolve while Twingate is up, suspect the hardcoded
 > `networking.nameservers` (Quad9) in [`system/configuration.nix`](system/configuration.nix):
