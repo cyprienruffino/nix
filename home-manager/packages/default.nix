@@ -69,6 +69,7 @@
     winetricks
     heroic
     proton-vpn
+    slack
     kdePackages.kate
   ];
 }
