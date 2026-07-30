@@ -13,9 +13,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    # Kolide's own flake — the launcher is not in nixpkgs.
+    kolide-launcher = {
+      url = "github:kolide/nix-agent/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -23,7 +28,10 @@
     in {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [ ./system/configuration.nix ];
+        modules = [
+          ./system/configuration.nix
+          kolide-launcher.nixosModules.kolide-launcher
+        ];
       };
 
       homeConfigurations."cyprien@nixos" = home-manager.lib.homeManagerConfiguration {
