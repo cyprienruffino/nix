@@ -11,8 +11,10 @@
 
     shellAliases = {
       hms  = "git -C /home/cyprien/nix add -A && home-manager switch --flake /home/cyprien/nix -b backup";
+      hmsw = "git -C /home/cyprien/nix add -A && home-manager switch --flake /home/cyprien/nix#cyprien@nixos-work -b backup";
       hmn  = "home-manager news --flake /home/cyprien/nix";
       nrs = "sudo nixos-rebuild switch --flake /home/cyprien/nix --impure";
+      nrsw = "sudo nixos-rebuild switch --flake /home/cyprien/nix#nixos-work --impure";
       nfu = "nix flake update  --flake /home/cyprien/nix";
       nu = "nfu && nrs && hms && hmn";
       ls   = "ls --color=auto";

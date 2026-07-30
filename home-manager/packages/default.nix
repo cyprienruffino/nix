@@ -28,17 +28,6 @@
     screenfetch
     stu
     killall
-
-    # Cloud CLIs
-    awscli2
-    azure-cli
-    google-cloud-sdk
-
-    # Dev
-    terraform
-    docker
-    nodejs
-    packer
     gh
     android-tools
 
@@ -65,11 +54,6 @@
     obsidian
     freetube
     ferdium
-    chromium
-    wine
-    winetricks
-    dosbox
-    heroic
     proton-vpn
     slack
     kdePackages.kate

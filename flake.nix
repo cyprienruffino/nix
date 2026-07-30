@@ -25,22 +25,34 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
       pkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
-    in {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+
+      # Build the host, optionally layering extra modules on top. The base build
+      # leaves the work agents off; `nixos-work` opts in by setting the flag.
+      mkHost = extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           ./system/configuration.nix
           kolide-launcher.nixosModules.kolide-launcher
-        ];
+        ] ++ extraModules;
       };
 
-      homeConfigurations."cyprien@nixos" = home-manager.lib.homeManagerConfiguration {
+      mkHome = extraModules: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit pkgsUnstable; };
         modules = [
           ./home-manager/home.nix
           plasma-manager.homeModules.plasma-manager
-        ];
+        ] ++ extraModules;
+      };
+    in {
+      nixosConfigurations = {
+        nixos = mkHost [ ];
+        nixos-work = mkHost [ { custom.work.enable = true; } ];
+      };
+
+      homeConfigurations = {
+        "cyprien@nixos" = mkHome [ ];
+        "cyprien@nixos-work" = mkHome [ { custom.work.enable = true; } ];
       };
     };
 }

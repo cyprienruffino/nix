@@ -29,8 +29,11 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
+  # Automatically detect and set the time zone based on network location
+  # (geoclue). Do not set time.timeZone here — it conflicts with, and would
+  # relock, the timezone managed by automatic-timezoned.
+  services.automatic-timezoned.enable = true;
+  services.geoclue2.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "fr_FR.UTF-8";
