@@ -23,9 +23,15 @@
       url = "github:cyprienruffino/jumpcloud-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Claude Desktop for Linux — not in nixpkgs. Built against unstable, so
+    # follow nixpkgs-unstable rather than our 26.05 pin.
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, claude-desktop, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -42,9 +48,12 @@
         ] ++ extraModules;
       };
 
+      # Claude Desktop's flake package, ready to drop into home.packages.
+      claude-desktop-pkg = claude-desktop.packages.${system}.default;
+
       mkHome = extraModules: home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = { inherit pkgsUnstable; };
+        extraSpecialArgs = { inherit pkgsUnstable claude-desktop-pkg; };
         modules = [
           ./home-manager/home.nix
           plasma-manager.homeModules.plasma-manager
