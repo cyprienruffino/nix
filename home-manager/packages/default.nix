@@ -24,13 +24,10 @@
     htop
     yazi
     wget
-    k9s
     screenfetch
-    stu
     killall
     gh
     android-tools
-
 
     # Media / Audio / Music
     vlc

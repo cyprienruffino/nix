@@ -20,6 +20,9 @@
       docker
       nodejs
       packer
+      k9s
+      stu
+
     ];
   };
 }
