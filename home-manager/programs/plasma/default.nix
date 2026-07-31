@@ -6,6 +6,11 @@
 
     workspace.wallpaper = ../../../res/wallpaper.jpg;
 
+    # Drive the Plasma color scheme declaratively. In a Plasma session Qt apps
+    # (Zoom, etc.) follow this automatically; our GTK theme is set separately
+    # in ../gtk. Zoom still needs its in-app Theme set to "Use system setting".
+    workspace.colorScheme = "BreezeDark";
+
     # Bind Meta alone to Overview; keep Meta+W as well.
     # Remove Meta from the app launcher so it doesn't conflict.
     shortcuts."kwin"."Overview" = [ "Meta" "Meta+W" ];

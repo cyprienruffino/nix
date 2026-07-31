@@ -1,11 +1,6 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
-  imports =  # Import everything ffrom every subdirectories
-    let dirs = builtins.readDir ./.;
-    in map (name: ./. + "/${name}")
-       (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
-
   home.packages = with pkgs; [
     # Archives
     bzip2
@@ -52,7 +47,6 @@
     freetube
     ferdium
     proton-vpn
-    slack
     kdePackages.kate
   ];
 }
