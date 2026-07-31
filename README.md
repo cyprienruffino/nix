@@ -2,8 +2,16 @@
 
 Personal NixOS setup managed with flakes and Home Manager.
 
-- **System changes** (require sudo): `sudo nixos-rebuild switch --flake .`
+- **System changes** (require sudo): `sudo nixos-rebuild switch --flake . --impure`
 - **User changes** (no sudo): `home-manager switch --flake .`
+
+The machine's hostname selects the profile: `nixos` machines get the personal
+profile, `nixos-work` machines the work one (compliance agents, work packages —
+see [Work agents](#work-agents)). The same commands and aliases work everywhere.
+
+`--impure` is deliberate: the machine-specific `hardware-configuration.nix` is
+imported from `/etc/nixos/` rather than tracked here, so one repo works on any
+machine (see [Fresh install setup](#fresh-install-setup)).
 
 ## Cheat-sheet
 
@@ -11,11 +19,11 @@ Personal NixOS setup managed with flakes and Home Manager.
 
 | Command | What it does |
 |---|---|
-| `hms` | Apply home-manager changes (alias) |
+| `hms` | Apply home-manager changes (also `git add --intent-to-add`s new files so the flake can see them) |
 | `hmn` | Show home-manager changelog |
-| `nrs` or `sudo nixos-rebuild switch --flake /home/cyprien/nix#nixos` | Apply system changes |
-| `sudo nixos-rebuild test --flake ...` | Apply without making it the boot default |
-| `sudo nixos-rebuild boot --flake ...` | Stage for next boot only |
+| `nrs` or `sudo nixos-rebuild switch --flake /home/cyprien/nix --impure` | Apply system changes |
+| `sudo nixos-rebuild test --flake ... --impure` | Apply without making it the boot default |
+| `sudo nixos-rebuild boot --flake ... --impure` | Stage for next boot only |
 | `nfu` or `nix flake update` | Update all inputs to latest (nixpkgs, home-manager…) |
 | `nix flake update nixpkgs` | Update a single input |
 
@@ -53,39 +61,42 @@ Personal NixOS setup managed with flakes and Home Manager.
 
 After a fresh NixOS install, clone this repo and run these steps once.
 
-### 1. Fix /etc/nixos symlinks
+The installer-generated `/etc/nixos/hardware-configuration.nix` stays where it
+is — it is the machine-specific source of truth, and `system/configuration.nix`
+imports it from there. That import is what makes every system rebuild need
+`--impure`; the trade-off is that this repo works unmodified on any machine.
+(`/etc/nixos/configuration.nix` becomes dead weight once the flake is in charge.)
 
-The default `/etc/nixos` files must point to this repo:
+### 1. Rebuild the system from the flake
 
-```bash
-sudo ln -sf /path/to/repo/system/configuration.nix /etc/nixos/configuration.nix
-sudo ln -sf /etc/nixos/hardware-configuration.nix /path/to/repo/system/hardware-configuration.nix 
-```
-
-> `hardware-configuration.nix` is machine-specific and not tracked in git.
-
-### 2. Rebuild the system (enables flakes and installs git)
-
-```bash
-sudo nixos-rebuild switch
-```
-
-### 3. Track all files with git
-
-Nix flakes only see files tracked by git:
+Flakes and git aren't available yet on a bare install, so bring your own git
+and enable flakes for just this one command (the rebuild then enables them
+permanently):
 
 ```bash
-git add -A
+nix-shell -p git
+sudo env PATH="$PATH" nixos-rebuild switch --flake .#nixos --impure \
+  --option extra-experimental-features "nix-command flakes"
 ```
 
-### 4. Bootstrap Home Manager
+> **Work machine?** Use `.#nixos-work` instead. The explicit fragment is only
+> needed this first time: the work profile sets the hostname to `nixos-work`,
+> and every later rebuild auto-selects the profile from the hostname.
+
+### 2. Bootstrap Home Manager
 
 ```bash
 mkdir -p ~/.local/state/nix/profiles
 nix shell nixpkgs#home-manager --command home-manager switch --flake .
 ```
 
-Home Manager now manages itself — no need to repeat this step.
+Home Manager now manages itself — no need to repeat this step. It also picks
+its profile from the hostname (`cyprien@nixos` vs `cyprien@nixos-work`), so
+rebuild the system first on a work machine.
+
+> Nix flakes only see git-tracked files. The `hms` alias runs
+> `git add --intent-to-add -A` before switching, which makes new files visible
+> to the flake without staging their content.
 
 ## Work agents
 
@@ -129,7 +140,7 @@ Get the connect key from the admin console under
 sudo mkdir -p /etc/jumpcloud
 printf %s '<connect-key>' | sudo tee /etc/jumpcloud/connect-key
 sudo chmod 600 /etc/jumpcloud/connect-key
-sudo nixos-rebuild switch --flake .#nixos-work
+sudo nixos-rebuild switch --flake . --impure
 ```
 
 The key rotates, so grab a fresh one; until the device is enrolled the service re-reads it
@@ -157,10 +168,12 @@ desktop notification and have to fall back to `twingate-notifier console`.
 | `twingate status` | Connection state |
 | `twingate resources` | List resources you can reach |
 
-> If internal hostnames fail to resolve while Twingate is up, suspect the hardcoded
-> `networking.nameservers` (Quad9) in [`system/configuration.nix`](system/configuration.nix):
-> Twingate needs to intercept DNS to resolve private resources. Dropping those and
-> letting NetworkManager take DNS from the network is the fix.
+> If internal hostnames ever fail to resolve while Twingate is up, the first
+> suspect is the hardcoded `networking.nameservers` (Quad9) in
+> [`system/configuration.nix`](system/configuration.nix): Twingate needs to
+> intercept DNS to resolve private resources. In practice its interception has
+> always won out, but if it doesn't, drop those and let NetworkManager take DNS
+> from the network.
 
 ## Directory structure
 
@@ -168,7 +181,14 @@ desktop notification and have to fall back to `twingate-notifier console`.
 .
 ├── flake.nix               # Defines system and home-manager outputs
 ├── system/
-│   └── configuration.nix   # System-wide config (sudo required to apply)
-└── home-manager/
-    └── home.nix            # User environment, packages, and configs
+│   ├── configuration.nix   # System-wide config (sudo required to apply)
+│   └── work.nix            # Work toggle: hostname, docker, compliance agents
+└── home-manager/           # home.nix auto-imports every subdirectory
+    ├── home.nix            # Entry point; maps res/ into ~/.local/res
+    ├── packages/           # Flat list of user packages
+    ├── programs/           # Per-program config (git, kitty, plasma, …)
+    ├── scripts/            # Small personal scripts wrapped as packages
+    ├── shell/              # zsh, aliases, direnv, zoxide
+    ├── portals/            # xdg-desktop-portal/kwallet ordering fixes
+    └── work/               # Work toggle: work-only packages and git identity
 ```
