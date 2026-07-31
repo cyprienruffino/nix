@@ -5,7 +5,6 @@ prompt redhat
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 bindkey "^[[3~"   delete-char
-bindkey "^[3;5~"  delete-char
 bindkey '^[[3;5~' kill-word
 bindkey '\e[1~'   beginning-of-line
 bindkey '\e[H'    beginning-of-line

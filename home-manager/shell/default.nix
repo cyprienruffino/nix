@@ -5,17 +5,20 @@
     enable = true;
 
     history = {
-      size = 1000;
-      save = 1000;
+      size = 100000;
+      save = 100000;
+      ignoreAllDups = true;
     };
 
+    # No work variants needed: the hostname (nixos vs nixos-work) selects the
+    # right flake output for both nixos-rebuild and home-manager.
+    # `add --intent-to-add` makes new files visible to the flake (which only
+    # sees git-tracked files) without staging their content.
     shellAliases = {
-      hms  = "git -C /home/cyprien/nix add -A && home-manager switch --flake /home/cyprien/nix -b backup";
-      hmsw = "git -C /home/cyprien/nix add -A && home-manager switch --flake /home/cyprien/nix#cyprien@nixos-work -b backup";
+      hms  = "git -C /home/cyprien/nix add --intent-to-add -A && home-manager switch --flake /home/cyprien/nix -b backup";
       hmn  = "home-manager news --flake /home/cyprien/nix";
       nrs = "sudo nixos-rebuild switch --flake /home/cyprien/nix --impure";
-      nrsw = "sudo nixos-rebuild switch --flake /home/cyprien/nix#nixos-work --impure";
-      nfu = "nix flake update  --flake /home/cyprien/nix";
+      nfu = "nix flake update --flake /home/cyprien/nix";
       nu = "nfu && nrs && hms && hmn";
       ls   = "ls --color=auto";
       grep = "grep --color=auto";
@@ -29,6 +32,12 @@
   programs.zoxide = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
   };
 
   home.sessionVariables = {
