@@ -4,17 +4,19 @@
 # leaves it off.
 #
 # This directory is auto-imported by home.nix, which is what registers the
-# option below. It mirrors the top-level home-manager/ layout: subdirectories
-# are auto-imported here (currently just packages/), and each leaf module gates
-# its own config on the flag with `mkIf`.
+# option below. It mirrors the top-level home-manager/ layout (packages.nix +
+# programs/), and each leaf module gates its own config on the flag with `mkIf`.
 { config, lib, ... }:
 
 {
   options.custom.work.enable =
     lib.mkEnableOption "work-specific home-manager configuration";
 
-  imports =  # Import everything from every subdirectory
-    let dirs = builtins.readDir ./.;
+  imports =  # Import every subdirectory and every sibling .nix file
+    let
+      isModule = name: type:
+        type == "directory"
+        || (type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix");
     in map (name: ./. + "/${name}")
-       (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
+       (builtins.attrNames (lib.filterAttrs isModule (builtins.readDir ./.)));
 }

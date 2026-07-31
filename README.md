@@ -183,12 +183,12 @@ desktop notification and have to fall back to `twingate-notifier console`.
 ├── system/
 │   ├── configuration.nix   # System-wide config (sudo required to apply)
 │   └── work.nix            # Work toggle: hostname, docker, compliance agents
-└── home-manager/           # home.nix auto-imports every subdirectory
+└── home-manager/           # home.nix auto-imports every subdir and .nix file
     ├── home.nix            # Entry point; maps res/ into ~/.local/res
-    ├── packages/           # Flat list of user packages
+    ├── packages.nix        # Flat list of user packages
     ├── programs/           # Per-program config (git, kitty, plasma, …)
     ├── scripts/            # Small personal scripts wrapped as packages
     ├── shell/              # zsh, aliases, direnv, zoxide
     ├── portals/            # xdg-desktop-portal/kwallet ordering fixes
-    └── work/               # Work toggle: work-only packages and git identity
+    └── work/               # Work toggle, same layout: packages.nix + programs/
 ```
