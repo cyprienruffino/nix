@@ -4,25 +4,17 @@
 # leaves it off.
 #
 # This directory is auto-imported by home.nix, which is what registers the
-# option below; `mkIf` is what keeps the body inert when the flag is off.
-{ config, lib, pkgs, ... }:
+# option below. It mirrors the top-level home-manager/ layout: subdirectories
+# are auto-imported here (currently just packages/), and each leaf module gates
+# its own config on the flag with `mkIf`.
+{ config, lib, ... }:
 
 {
   options.custom.work.enable =
     lib.mkEnableOption "work-specific home-manager configuration";
 
-  config = lib.mkIf config.custom.work.enable {
-    # Add work-only packages, programs and dotfiles here, e.g.:
-    home.packages = with pkgs; [
-      awscli2
-      google-cloud-sdk
-      terraform
-      docker
-      nodejs
-      packer
-      k9s
-      stu
-
-    ];
-  };
+  imports =  # Import everything from every subdirectory
+    let dirs = builtins.readDir ./.;
+    in map (name: ./. + "/${name}")
+       (builtins.attrNames (lib.filterAttrs (_: t: t == "directory") dirs));
 }
