@@ -8,6 +8,10 @@ Personal NixOS setup managed with flakes and Home Manager.
 The machine's hostname selects the profile: `nixos` machines get the personal
 profile, `nixos-work` machines the work one (compliance agents, work packages —
 see [Work agents](#work-agents)). The same commands and aliases work everywhere.
+To move a machine to the other profile, run one explicit rebuild — e.g.
+`sudo nixos-rebuild switch --flake .#nixos-work --impure` — after which the
+bare aliases follow the new hostname (an activation script updates the runtime
+hostname immediately; no reboot needed).
 
 `--impure` is deliberate: the machine-specific `hardware-configuration.nix` is
 imported from `/etc/nixos/` rather than tracked here, so one repo works on any

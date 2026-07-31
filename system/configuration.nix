@@ -24,6 +24,15 @@
   # nixosConfigurations.<hostname>, so `nixos` machines get the personal
   # profile and `nixos-work` machines (set in work.nix) the work one.
   networking.hostName = lib.mkDefault "nixos";
+
+  # nixos-rebuild switch updates /etc/hostname but NOT the kernel hostname —
+  # that normally happens only at boot. Without this, switching a machine to
+  # the other profile leaves `hostname` stale, and the next bare nrs/hms
+  # quietly selects the OLD profile again (this actually happened). Setting it
+  # during activation makes profile switches take effect immediately.
+  system.activationScripts.setHostname = ''
+    ${pkgs.nettools}/bin/hostname ${lib.escapeShellArg config.networking.hostName}
+  '';
   networking.nameservers = [ "9.9.9.9" "149.112.112.112" ]; # Quad9
 
   # Enable networking
