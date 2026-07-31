@@ -10,6 +10,19 @@
     lib.mkEnableOption "work-mandated device agents (Kolide, Twingate, JumpCloud)";
 
   config = lib.mkIf config.custom.work.enable {
+    # Distinct hostname so `--flake .` (no fragment) auto-selects the work
+    # profile — both for nixos-rebuild and for standalone home-manager, which
+    # matches homeConfigurations."cyprien@<hostname>". Prevents a plain `nrs`
+    # from silently reverting a work machine to the personal profile and
+    # de-enrolling the agents below.
+    networking.hostName = "nixos-work";
+
+    # Docker daemon + CLI. The daemon is work-only; the docker group grant
+    # lives here too (docker group ≈ passwordless root, so it should not
+    # exist on machines without the daemon).
+    virtualisation.docker.enable = true;
+    users.users."cyprien".extraGroups = [ "docker" ];
+
     # Kolide device-compliance agent (from the kolide-launcher flake input).
     # The enrollment secret is deliberately NOT declared here: anything set via
     # environment.etc ends up world-readable in the nix store, and this repo is
