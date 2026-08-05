@@ -74,6 +74,14 @@
     QT_QPA_PLATFORM = "wayland;xcb";
   };
 
+  # DisplayLink docks/adapters. "displaylink" pulls in the evdi kernel module
+  # and the DisplayLinkManager service; "modesetting" stays for the GPU.
+  # The driver zip is non-redistributable (EULA), so it must be put in the
+  # store manually once per machine before building:
+  #   nix-prefetch-url --name displaylink-620.zip \
+  #     'https://www.synaptics.com/sites/default/files/exe_files/2025-09/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.2-EXE.zip'
+  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "fr";
