@@ -31,12 +31,7 @@
     ffmpeg
     ardour
     audacity
-    (tuxguitar.overrideAttrs (old: {
-      postInstall = (old.postInstall or "") + ''
-        wrapProgram $out/bin/tuxguitar \
-          --set GTK_THEME Adwaita:light
-      '';
-    }))
+    # tuxguitar lives in programs/tuxguitar/ — it needs a dark-theme wrapper
 
     # Apps
     claude-code
