@@ -3,6 +3,10 @@
 {
   programs.kitty = {
     enable = true;
+    font = {
+      name = "JetBrainsMono Nerd Font";
+      size = 11;
+    };
     settings = {
       hide_window_decorations = "yes";
       paste_actions = "quote-urls-at-prompt";
