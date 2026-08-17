@@ -7,10 +7,18 @@
   config = lib.mkIf config.custom.work.enable {
     home.packages = with pkgs; [
       awscli2
-      google-cloud-sdk
+      (google-cloud-sdk.withExtraComponents [
+        google-cloud-sdk.components.gke-gcloud-auth-plugin
+      ])
       terraform
+      opentofu
       nodejs
+      oci-cli
       packer
+      kubectl
+      kubelogin-oidc
+      kustomize
+      argocd
       k9s
       stu
     ];
