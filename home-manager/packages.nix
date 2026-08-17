@@ -23,6 +23,7 @@
     killall
     gh
     android-tools
+    uv
 
     # Media / Audio / Music
     vlc
