@@ -17,6 +17,7 @@
       packer
       kubectl
       kubelogin-oidc
+      kubie
       kustomize
       argocd
       k9s
