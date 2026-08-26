@@ -35,7 +35,12 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      pkgsUnstable = nixpkgs-unstable.legacyPackages.${system};
+      # Instantiate unstable with allowUnfree so unfree deps resolve (e.g. the
+      # coder CLI wraps itself with terraform, which is BSL-licensed).
+      pkgsUnstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       # Build the host, optionally layering extra modules on top. The base build
       # leaves the work agents off; `nixos-work` opts in by setting the flag.

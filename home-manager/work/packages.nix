@@ -1,7 +1,7 @@
 # Work-only packages, mirroring home-manager/packages.nix: a flat list of
 # plain package names. Anything needing more than a name gets its own module
 # under programs/. Gated on custom.work.enable like every work module.
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsUnstable, ... }:
 
 {
   config = lib.mkIf config.custom.work.enable {
@@ -16,12 +16,19 @@
       oci-cli
       packer
       kubectl
+      kubernetes-helm
       kubelogin-oidc
       kubie
       kustomize
       argocd
       k9s
       stu
+      # vector — provides `vector vrl` to validate/test VRL (Vector Remap
+      # Language) programs. See https://vector.dev/docs/reference/vrl/
+      vector
+      # coder CLI — pulled from unstable to match the coder.ops.runwayml.com
+      # server version (26.05 lags several minors behind).
+      pkgsUnstable.coder
     ];
   };
 }
