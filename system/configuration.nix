@@ -20,6 +20,17 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # 7.2 regression: the SDCA class driver requests its IRQ during probe, but
+  # the SoundWire bus only maps it afterwards, so the cs42l45 SmartMic
+  # firmware never loads and the built-in mic records silence ("SWFT not
+  # available", "PDE 11 event failed: -110"). Upstream fix ee1811eacdbb is in
+  # 7.3 and queued for 7.2-stable; drop this once linuxPackages_latest has it.
+  # https://github.com/thesofproject/linux/issues/5933
+  boot.kernelPatches = [{
+    name = "soundwire-irq-mapping-before-probe";
+    patch = ./patches/soundwire-irq-mapping-before-probe.patch;
+  }];
+
   # The hostname selects the flake output: `--flake .` resolves to
   # nixosConfigurations.<hostname>, so `nixos` machines get the personal
   # profile and `nixos-work` machines (set in work.nix) the work one.

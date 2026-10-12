@@ -1,0 +1,48 @@
+From ee1811eacdbba15a374957c2bcc6ba7102e2b781 Mon Sep 17 00:00:00 2001
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Date: Mon, 10 Aug 2026 11:40:44 +0100
+Subject: [PATCH] soundwire: bus_type: Create IRQ mapping before calling driver
+ probe()
+
+Call sdw_irq_create_mapping() before calling the peripheral driver
+probe() so that it is possible to request the IRQ during probe().
+
+Previously creation of the mapping was conditional on the use_domain_irq
+flag in the driver properties. But these are filled in after probe(),
+which meant it wasn't possible to request the IRQ during probe(). This
+was ok for MFD drivers where only children requested the IRQ. But for
+normal drivers it led to the non-standard behavior of having to defer
+requesting the IRQ until after probe().
+
+Signed-off-by: Richard Fitzgerald <rf@opensource.cirrus.com>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+Link: https://patch.msgid.link/20260810104045.60701-4-rf@opensource.cirrus.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/soundwire/bus_type.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index e73c1bea905936..d61a97c5b41ef7 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -105,6 +105,9 @@ static int sdw_bus_probe(struct device *dev)
+ 	}
+ 	slave->index = ret;
+ 
++	/* Create IRQ mapping now so the driver can get it in probe() */
++	sdw_irq_create_mapping(slave);
++
+ 	ret = drv->probe(slave, id);
+ 	if (ret) {
+ 		ida_free(&slave->bus->slave_ida, slave->index);
+@@ -117,9 +120,6 @@ static int sdw_bus_probe(struct device *dev)
+ 	if (drv->ops && drv->ops->read_prop)
+ 		drv->ops->read_prop(slave);
+ 
+-	if (slave->prop.use_domain_irq)
+-		sdw_irq_create_mapping(slave);
+-
+ 	/* init the dynamic sysfs attributes we need */
+ 	ret = sdw_slave_sysfs_dpn_init(slave);
+ 	if (ret < 0)
