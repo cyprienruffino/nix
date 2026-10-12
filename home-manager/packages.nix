@@ -32,6 +32,7 @@
     ffmpeg
     ardour
     audacity
+    jellyfin-desktop
     # tuxguitar lives in programs/tuxguitar/ — it needs a dark-theme wrapper
 
     # Apps
