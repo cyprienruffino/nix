@@ -1,7 +1,7 @@
 # System configuration shared by all machines. Anything machine-specific
 # lives in /etc/nixos/hardware-configuration.nix, imported below.
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgsKernel, lib, ... }:
 
 {
   imports =
@@ -15,10 +15,34 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Latest kernel: 6.18 LTS lacks the SoundWire fallback machine driver this
+  # laptop's Cirrus codecs need (no mic/speakers, HDMI-only "Pro Audio").
+  # nixpkgs' evdi (1.14.15, pulled in by the displaylink driver below) does not
+  # build against 7.2, so bump it to 1.15.1, which adds 7.2 support. 1.15.x
+  # dropped the /etc/os-release lookup the nixpkgs prePatch rewrites. Its
+  # kzalloc_obj conftest probe misfires under our build, so evdi redefines the
+  # kernel's 7.2 macro and breaks acpi.h; only fall back when the kernel has
+  # none. Drop the override once nixpkgs ships an evdi that builds on 7.2.
+  # pkgsKernel pins linux 7.2.7 (see the nixpkgs-kernel input in flake.nix).
+  boot.kernelPackages = pkgsKernel.linuxPackages_latest.extend (final: prev: {
+    evdi = prev.evdi.overrideAttrs (old: {
+      version = "1.15.1";
+      src = pkgsKernel.fetchFromGitHub {
+        owner = "DisplayLink";
+        repo = "evdi";
+        tag = "v1.15.1";
+        hash = "sha256-3g6OETXJSf6AScJ2K9F67mPlh3Wpi20Yq+f+xe78p9Y=";
+      };
+      prePatch = ''
+        substituteInPlace module/evdi_debug.h \
+          --replace-fail '#ifndef EVDI_HAVE_KZALLOC_OBJ' \
+                         '#if !defined(EVDI_HAVE_KZALLOC_OBJ) && !defined(kzalloc_obj)'
+      '';
+    });
+  });
 
   # The hostname selects the flake output: `--flake .` resolves to
   # nixosConfigurations.<hostname>, so `nixos` machines get the personal
@@ -143,6 +167,8 @@
     zlib          # libz.so.1
     glib          # libglib-2.0.so.0
     libGL         # libGL.so.1  (opencv)
+    ffmpeg_7.lib  # libavcodec.so.61 and friends (ffmpeg 7.1)
+    (lib.getLib cudaPackages_13.libnpp)  # libnppicc.so.13 etc. (torchcodec)
   ];
 
   # Enable flakes and new nix CLI

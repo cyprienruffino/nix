@@ -16,10 +16,10 @@
     shortcuts."kwin"."Overview" = [ "Meta" "Meta+W" ];
     shortcuts."plasmashell"."activate application launcher" = "Alt+F1";
 
-    hotkeys.commands."rofi" = {
-      name = "Launch Rofi";
+    hotkeys.commands."ulauncher" = {
+      name = "Launch Ulauncher";
       key = "ctrl+space";
-      command = "rofi -show drun";
+      command = "ulauncher-toggle";
     };
 
     hotkeys.commands."quick-access-terminal" = {

@@ -13,6 +13,7 @@
       terraform
       opentofu
       nodejs
+      biome
       oci-cli
       packer
       kubectl
@@ -23,6 +24,8 @@
       argocd
       k9s
       stu
+      # Modal CLI (serverless GPU platform) — the python package ships the `modal` binary.
+      python3Packages.modal
       # vector — provides `vector vrl` to validate/test VRL (Vector Remap
       # Language) programs. See https://vector.dev/docs/reference/vrl/
       vector

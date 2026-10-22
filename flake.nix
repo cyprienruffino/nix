@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    # Kernel pin: the nixos-26.05 rev that shipped linux 7.2.7. 7.2.11 never
+    # registers the CS35L63 amps' DAI, so sof_sdw builds no sound card at all.
+    # Only boot.kernelPackages comes from here; drop once 7.2.x is fixed.
+    nixpkgs-kernel.url = "github:nixos/nixpkgs/1bc55b9def8165e82073919945c3239903fe4dc2";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +35,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, claude-desktop, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-kernel, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, claude-desktop, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -46,6 +50,7 @@
       # leaves the work agents off; `nixos-work` opts in by setting the flag.
       mkHost = extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs.pkgsKernel = nixpkgs-kernel.legacyPackages.${system};
         modules = [
           ./system/configuration.nix
           kolide-launcher.nixosModules.kolide-launcher

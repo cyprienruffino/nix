@@ -1,7 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, pkgsUnstable, ... }:
 
 {
-  home.packages = with pkgs; [
+  home.packages = [
+    # Stable's claude-code lags behind releases; track unstable for it.
+    pkgsUnstable.claude-code
+    # Stable pins a toolbox tarball JetBrains has since pulled from the CDN (404).
+    pkgsUnstable.jetbrains-toolbox
+  ] ++ (with pkgs; [
     # Archives
     bzip2
     gzip
@@ -20,10 +25,15 @@
     yazi
     wget
     screenfetch
+    jq
+    yq
     killall
     gh
     android-tools
     uv
+    ruff
+    ty
+    openssl
 
     # Media / Audio / Music
     vlc
@@ -35,14 +45,14 @@
     # tuxguitar lives in programs/tuxguitar/ — it needs a dark-theme wrapper
 
     # Apps
-    claude-code
     discord
     slack
+    chromium
     gimp
     obsidian
     freetube
     ferdium
     proton-vpn
     kdePackages.kate
-  ];
+  ]);
 }
