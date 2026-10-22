@@ -18,6 +18,7 @@
       packer
       kubectl
       kubernetes-helm
+      helmfile
       kubelogin-oidc
       kubie
       kustomize
