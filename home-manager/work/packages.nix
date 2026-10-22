@@ -19,6 +19,7 @@
       kubectl
       kubernetes-helm
       helmfile
+      circleci-cli
       kubelogin-oidc
       kubie
       kustomize
