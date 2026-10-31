@@ -4,8 +4,6 @@
   home.packages = [
     # Stable's claude-code lags behind releases; track unstable for it.
     pkgsUnstable.claude-code
-    # Stable pins a toolbox tarball JetBrains has since pulled from the CDN (404).
-    pkgsUnstable.jetbrains-toolbox
   ] ++ (with pkgs; [
     # Archives
     bzip2
@@ -46,7 +44,6 @@
 
     # Apps
     discord
-    slack
     signal-desktop
     chromium
     gimp

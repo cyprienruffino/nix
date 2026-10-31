@@ -34,6 +34,12 @@
       # coder CLI — pulled from unstable to match the coder.ops.runwayml.com
       # server version (26.05 lags several minors behind).
       pkgsUnstable.coder
+
+      # Work comms.
+      slack
+      # IDE launcher. Stable pins a toolbox tarball JetBrains has since pulled
+      # from the CDN (404), so take it from unstable.
+      pkgsUnstable.jetbrains-toolbox
     ];
   };
 }
