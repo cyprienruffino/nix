@@ -47,6 +47,7 @@
     # Apps
     discord
     slack
+    signal-desktop
     chromium
     gimp
     obsidian
