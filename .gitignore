@@ -1,4 +1,7 @@
-.claude
+# Share project skills and CLAUDE.md across machines; keep machine-local
+# Claude state (settings.local.json, caches) out of the repo.
+.claude/*
+!.claude/skills/
 result
 # CocoIndex Code (ccc)
 /.cocoindex_code/
