@@ -5,7 +5,7 @@
 #
 # This directory is auto-imported by home.nix, which is what registers the
 # option below. It mirrors the top-level home-manager/ layout (packages.nix +
-# programs/), and each leaf module gates its own config on the flag with `mkIf`.
+# packages/), and each leaf module gates its own config on the flag with `mkIf`.
 { config, lib, ... }:
 
 {

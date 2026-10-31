@@ -1,6 +1,6 @@
 # Work-only packages, mirroring home-manager/packages.nix: a flat list of
 # plain package names. Anything needing more than a name gets its own module
-# under programs/. Gated on custom.work.enable like every work module.
+# under packages/. Gated on custom.work.enable like every work module.
 { config, lib, pkgs, pkgsUnstable, ... }:
 
 {

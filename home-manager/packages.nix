@@ -40,7 +40,7 @@
     ffmpeg
     ardour
     audacity
-    # tuxguitar lives in programs/tuxguitar/ — it needs a dark-theme wrapper
+    # tuxguitar lives in packages/tuxguitar/ — it needs a dark-theme wrapper
 
     # Apps
     discord
