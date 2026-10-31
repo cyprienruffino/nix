@@ -8,7 +8,7 @@
 
 {
   options.custom.work.enable =
-    lib.mkEnableOption "work-mandated device agents (Kolide, Twingate, JumpCloud)";
+    lib.mkEnableOption "work-machine config: hostname, docker, device agents, keyboard";
 
   config = lib.mkIf config.custom.work.enable {
     # Distinct hostname so `--flake .` (no fragment) auto-selects the work

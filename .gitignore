@@ -2,3 +2,9 @@
 result
 # CocoIndex Code (ccc)
 /.cocoindex_code/
+
+# Machine-specific: generated per machine by the installer and imported from
+# /etc/nixos by system/configuration.nix. This repo is shared across machines,
+# so committing it breaks every other machine. It has been added and removed
+# three times already -- do not track it.
+system/hardware-configuration.nix

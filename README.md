@@ -190,6 +190,7 @@ desktop notification and have to fall back to `twingate-notifier console`.
 └── home-manager/           # home.nix auto-imports every subdir and .nix file
     ├── home.nix            # Entry point; maps res/ into ~/.local/res
     ├── packages.nix        # Flat list of user packages
+    ├── fonts.nix           # fontconfig + JetBrains Mono Nerd Font
     ├── programs/           # Per-program config (git, kitty, plasma, …)
     ├── scripts/            # Small personal scripts wrapped as packages
     ├── shell/              # zsh, aliases, direnv, zoxide
