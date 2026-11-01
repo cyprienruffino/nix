@@ -167,19 +167,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Network debugging toolkit. Everything else is user-level (home-manager).
-  environment.systemPackages = with pkgs; [
-    dnsutils    # dig, nslookup, host
-    nettools    # netstat, ifconfig, route, arp
-    nmap        # port scanning
-    traceroute
-    whois
-    mtr         # combined traceroute + ping
-    tcpdump     # packet capture
-    iperf3      # bandwidth testing
-    lsof        # list open files/sockets
-  ];
-
   swapDevices = [{
     device = "/var/lib/swapfile";
     size = 8 * 1024;

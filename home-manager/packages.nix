@@ -31,6 +31,17 @@
     ty
     openssl
 
+    # Network debugging
+    dnsutils    # dig, nslookup, host
+    nettools    # netstat, ifconfig, route, arp
+    nmap        # port scanning
+    traceroute
+    whois
+    mtr         # combined traceroute + ping
+    tcpdump     # packet capture
+    iperf3      # bandwidth testing
+    lsof        # list open files/sockets
+
     # Media / Audio / Music
     vlc
     guitarix
