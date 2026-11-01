@@ -18,9 +18,7 @@
     zstd
 
     # CLI tools
-    btop
     htop
-    yazi
     wget
     screenfetch
     jq
