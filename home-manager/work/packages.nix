@@ -27,7 +27,10 @@
       k9s
       stu
       # Modal CLI (serverless GPU platform) — the python package ships the `modal` binary.
-      python3Packages.modal
+      # Tests skipped: test/webhook_test.py fails at collection because newer
+      # anyio turns a deprecation warning into an error. Drop the override once
+      # nixpkgs fixes it.
+      (python3Packages.modal.overridePythonAttrs { doCheck = false; })
       # vector — provides `vector vrl` to validate/test VRL (Vector Remap
       # Language) programs. See https://vector.dev/docs/reference/vrl/
       vector
