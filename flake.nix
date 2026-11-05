@@ -33,9 +33,12 @@
       url = "github:aaddrick/claude-desktop-debian";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # omp coding agent (omp.sh) — not in nixpkgs. Its flake pins its own
+    # unstable nixpkgs and Rust/bun toolchains, so don't make it follow ours.
+    omp.url = "github:can1357/oh-my-pi";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-kernel, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, claude-desktop, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-kernel, home-manager, plasma-manager, kolide-launcher, jumpcloud-nix, claude-desktop, omp, ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -67,6 +70,7 @@
         modules = [
           ./home-manager/home.nix
           plasma-manager.homeModules.plasma-manager
+          omp.homeManagerModules.default
         ] ++ extraModules;
       };
     in {
