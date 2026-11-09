@@ -42,7 +42,7 @@ let
     ${pkgs.rsync}/bin/rsync -a --delete remarkable:.local/share/remarkable/xochitl/ "$data/xochitl/"
     sed "s|@DATA@|$data|" ${config} > "$data/config.json"
     if mountpoint -q "$mnt"; then fusermount3 -u "$mnt"; fi
-    ${remarkable-fuse}/bin/remfs --config="$data/config.json" "$mnt"
+    ${remarkable-fuse}/bin/remfs --config="$data/config.json" -o ro "$mnt"
     echo "Mounted at $mnt"
   '';
 
