@@ -14,6 +14,9 @@ let
   remarkable = pkgs.writeShellScriptBin "remarkable" ''
     export WINEPREFIX="''${XDG_DATA_HOME:-$HOME/.local/share}/wineprefixes/remarkable"
     export WINEDEBUG=-all
+    # Keep Wine from adding its own menu entries; they call a bare `wine` that
+    # isn't on PATH and shadow ours.
+    export WINEDLLOVERRIDES="winemenubuilder.exe=d"
     exe="$WINEPREFIX/drive_c/Program Files/reMarkable/reMarkable.exe"
     if [ ! -f "$exe" ]; then
       ${wine}/bin/wineboot -i
