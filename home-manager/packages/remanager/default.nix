@@ -21,7 +21,7 @@ let
     sourceRoot = ".";
 
     nativeBuildInputs = with pkgs; [ autoPatchelfHook wrapGAppsHook4 ];
-    buildInputs = with pkgs; [ gtk4 webkitgtk_6_0 libsoup_3 glib xorg.libX11 glib-networking ];
+    buildInputs = with pkgs; [ gtk4 webkitgtk_6_0 libsoup_3 glib libx11 glib-networking ];
 
     installPhase = ''
       install -Dm755 reManager $out/bin/remanager
