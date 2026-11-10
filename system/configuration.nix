@@ -143,8 +143,7 @@
     };
   };
 
-  programs.gamescope.enable = true;
-  programs.gamemode.enable = true;
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."cyprien" = {
@@ -155,6 +154,8 @@
   };
 
   # Steam needs system-level setup for OpenGL/Vulkan drivers and FHS environment.
+  programs.gamescope.enable = true;
+  programs.gamemode.enable = true;
   programs.steam.enable = true;
   hardware.graphics.enable32Bit = true;
 
