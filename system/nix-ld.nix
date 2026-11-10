@@ -10,5 +10,13 @@
     libGL         # libGL.so.1  (opencv)
     ffmpeg_7.lib  # libavcodec.so.61 and friends (ffmpeg 7.1)
     (lib.getLib cudaPackages_13.libnpp)  # libnppicc.so.13 etc. (torchcodec)
+
+    # Tern (Stencil Labs terminal) dlopens these at runtime.
+    libxcb         # libxcb.so.1
+    libxkbcommon   # libxkbcommon{,-x11}.so.0
+    wayland        # libwayland-{client,egl}.so
+    vulkan-loader  # libvulkan.so.1  (EGL/GLES come from libGL above)
+    libpulseaudio  # libpulse-simple.so.0
+    linux-pam      # libpam.so.0
   ];
 }
