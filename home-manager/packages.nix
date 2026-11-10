@@ -3,7 +3,21 @@
 {
   home.packages = [
     # Stable's claude-code lags behind releases; track unstable for it.
-    pkgsUnstable.claude-code
+    # Its native binary dlopens X11/GPU/keyring libs that nixpkgs' wrapper
+    # doesn't expose (panics: "failed to load libxcb").
+    (pkgsUnstable.claude-code.overrideAttrs (old: {
+      postFixup = (old.postFixup or "") + ''
+        wrapProgram $out/bin/claude --suffix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath (with pkgs; [
+          libxcb
+          libx11
+          libxkbcommon
+          wayland
+          vulkan-loader
+          libGL
+          libsecret
+        ])}
+      '';
+    }))
   ] ++ (with pkgs; [
     # Archives
     bzip2
