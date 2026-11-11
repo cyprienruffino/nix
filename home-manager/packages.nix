@@ -30,6 +30,7 @@
     ruff
     ty
     openssl
+    playerctl
 
     # Network debugging
     dnsutils    # dig, nslookup, host
