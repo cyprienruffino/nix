@@ -159,6 +159,9 @@
   programs.steam.enable = true;
   hardware.graphics.enable32Bit = true;
 
+  # KDE Connect: installs the Plasma app and opens TCP/UDP 1714-1764.
+  programs.kdeconnect.enable = true;
+
   # Enable zsh system-wide (required to set it as default shell)
   programs.zsh.enable = true;
 
